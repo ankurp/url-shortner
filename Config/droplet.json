@@ -1,4 +1,6 @@
 {
+    "view": "leaf",
+
     "//": "The type of server to use for handling requests.",
     "//": "engine: Vapor's blazing fast Engine HTTP server.",
     "server": "engine",

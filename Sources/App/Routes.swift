@@ -2,24 +2,13 @@ import Vapor
 
 extension Droplet {
     func setupRoutes() throws {
-        get("hello") { req in
-            var json = JSON()
-            try json.set("hello", "world")
-            return json
+        get { _ in
+            return try self.view.make("new")
         }
 
-        get("plaintext") { req in
-            return "Hello, world!"
-        }
+        let host = config["server", "host"]?.string ?? "localhost"
+        let port = config["server", "port"]?.int ?? 8080
 
-        // response to requests to /info domain
-        // with a description of the request
-        get("info") { req in
-            return req.description
-        }
-
-        get("description") { req in return req.description }
-        
-        try resource("posts", PostController.self)
+        resource("", UrlController(view, hostname: host, port: port))
     }
 }

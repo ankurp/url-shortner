@@ -11,5 +11,5 @@ xcuserdata
 *.xcodeproj
 DerivedData/
 .DS_Store
-
+*.sqlite
 # End of https://www.gitignore.io/api/vapor
