@@ -1,0 +1,17 @@
+body {
+    margin: 0 20px;
+}
+
+.block {
+    display: block;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.justify-center {
+    justify-content: center;
+    margin: 0 auto;
+}
+
