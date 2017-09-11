@@ -20,7 +20,7 @@ final class UrlController: ResourceRepresentable {
     /// create and save the Url
     func create(_ req: Request) throws -> ResponseRepresentable {
         var longUrl = req.data["long"]!.string!
-        if !longUrl.starts(with: "http://") || !longUrl.starts(with: "https://") {
+        if !longUrl.hasPrefix("http://") && !longUrl.hasPrefix("https://") {
             longUrl = "http://\(longUrl)"
         }
 
