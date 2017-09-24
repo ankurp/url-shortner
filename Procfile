@@ -1,1 +1,1 @@
-web: Run --env=production --port=$PORT --config:postgres.url=$DATABASE_URL
+web: Run --env=production --port=$PORT --config:postgresql.url=$DATABASE_URL
