@@ -1,0 +1,20 @@
+version: '2'
+services:
+  db:
+    build: ./db
+    cpu_shares: 100
+    mem_limit: 300000000
+    image: encoreptl/url-shortener-postgres
+    volumes:
+      - db-data:/var/lib/postgresql/data
+  web:
+    build: .
+    image: encoreptl/url-shortener
+    cpu_shares: 100
+    mem_limit: 300000000
+    ports:
+      - "80:80"
+    depends_on:
+      - db
+volumes:
+  db-data:
