@@ -41,12 +41,14 @@ final class Url: Model {
         try row.set(Url.longKey, long)
         return row
     }
+}
 
+extension Parameterizable where Self: Entity {
     // returns the found model for the resolved url parameter
     public static func make(for parameter: String) throws -> Self {
         let id = Identifier(HashId.decode(parameter).first!)
         guard let found = try self.find(id) else {
-            throw Abort(.notFound, reason: "No \(Url.self) with that identifier was found.")
+            throw Abort(.notFound, reason: "No \(Self.self) with that identifier was found.")
         }
         return found
     }
