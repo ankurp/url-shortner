@@ -45,7 +45,7 @@ final class Url: Model {
     // returns the found model for the resolved url parameter
     public static func make(for parameter: String) throws -> Self {
         let id = Identifier(HashId.decode(parameter).first!)
-        guard let found = try find(id) else {
+        guard let found = try self.find(id) else {
             throw Abort(.notFound, reason: "No \(Url.self) with that identifier was found.")
         }
         return found
