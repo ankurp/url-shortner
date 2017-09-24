@@ -3,17 +3,9 @@ import HTTP
 
 final class UrlController: ResourceRepresentable {
     let view: ViewRenderer
-    let host: String
-    init(_ view: ViewRenderer, hostname: String, port: Int) {
+
+    init(_ view: ViewRenderer) {
         self.view = view
-        switch port {
-        case 80:
-            self.host = "http://\(hostname)/"
-        case 443:
-            self.host = "https://\(hostname)/"
-        default:
-            self.host = "http://\(hostname):\(port)/"
-        }
     }
 
     /// When consumers call 'POST' on '/urls' with valid JSON
@@ -26,7 +18,7 @@ final class UrlController: ResourceRepresentable {
 
         if let url = try Url.makeQuery().filter("long", longUrl).first() {
             return try view.make("show", [
-                "shortUrl": "\(host)\(url.short)",
+                "shortUrl": url.short,
                 "longUrl": url.long
             ], for: req)
         }
@@ -35,7 +27,7 @@ final class UrlController: ResourceRepresentable {
         try newUrl.save()
 
         return try view.make("show", [
-            "shortUrl": "\(host)\(newUrl.short)",
+            "shortUrl": newUrl.short,
             "longUrl": newUrl.long
         ], for: req)
     }
