@@ -8,7 +8,7 @@
         <h1 class="text-center">Your Short URL</h1>
         <p class="text-center">
             <a href="#(shortUrl)">#(shortUrl)</a>
-            for <a href="#(longUrl)">#(longUrl)</a>
+            -> <a href="#(longUrl)">#(longUrl)</a>
         </p>
     </div>
 </div>
