@@ -41,9 +41,7 @@ final class Url: Model {
         try row.set(Url.longKey, long)
         return row
     }
-}
 
-extension Url {
     // returns the found model for the resolved url parameter
     public static func make(for parameter: String) throws -> Self {
         let id = Identifier(HashId.decode(parameter).first!)
