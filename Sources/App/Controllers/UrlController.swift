@@ -8,28 +8,31 @@ final class UrlController: ResourceRepresentable {
         self.view = view
     }
 
+    func render(_ url: Url, forReq: Request) throws -> ResponseRepresentable {
+        return try view.make("show", [
+            "shortUrl": url.short,
+            "longUrl": url.long
+        ], for: forReq)
+    }
+
     /// When consumers call 'POST' on '/urls' with valid JSON
     /// create and save the Url
     func create(_ req: Request) throws -> ResponseRepresentable {
-        var longUrl = req.data["long"]!.string!
+        guard let reqLongData = req.data["long"] else { throw Abort.badRequest }
+        guard var longUrl = reqLongData.string else { throw Abort.badRequest }
+
         if !longUrl.hasPrefix("http://") && !longUrl.hasPrefix("https://") {
             longUrl = "http://\(longUrl)"
         }
 
         if let url = try Url.makeQuery().filter("long", longUrl).first() {
-            return try view.make("show", [
-                "shortUrl": url.short,
-                "longUrl": url.long
-            ], for: req)
+            return try render(url, forReq: req)
         }
         
         let newUrl = Url(long: longUrl)
         try newUrl.save()
 
-        return try view.make("show", [
-            "shortUrl": newUrl.short,
-            "longUrl": newUrl.long
-        ], for: req)
+        return try render(newUrl, forReq: req)
     }
 
     /// When the consumer calls 'GET' on a specific resource, ie:
