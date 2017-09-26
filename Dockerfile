@@ -16,6 +16,8 @@ COPY Config Config
 COPY Resources Resources
 COPY Public Public
 
+ENV DATABASE_URL postgres://postgres:@database:5432/urls
+
 EXPOSE 8080
 
-ENTRYPOINT [".build/release/Run"]
+ENTRYPOINT [".build/release/Run", "--env=production", "--config:postgresql.url=$DATABASE_URL"]

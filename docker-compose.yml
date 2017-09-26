@@ -12,8 +12,10 @@ services:
     image: encoreptl/url-shortener
     cpu_shares: 100
     mem_limit: 300000000
+    links:
+      - "db:database"
     ports:
-      - "80:80"
+      - "8080:8080"
     depends_on:
       - db
 volumes:
